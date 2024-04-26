@@ -1,0 +1,29 @@
+import difflib
+
+def find_similarities(set_a, set_b):
+    """
+    Find similarities between two sets of data.
+    
+    Args:
+    - set_a (list): List of strings representing Set A.
+    - set_b (list): List of strings representing Set B.
+    
+    Returns:
+    - similarities (list): List of tuples containing similar elements from Set A and Set B.
+    """
+    similarities = []
+    
+    for a in set_a:
+        matches = difflib.get_close_matches(a, set_b)
+        if matches:
+            similarities.append((a, matches[0]))
+    
+    return similarities
+
+# Example usage:
+set_a = ["A1", "A2", "A3", "A4", "A5"]
+set_b = ["B1", "B2", "B3", "A2", "B5"]
+
+similarities = find_similarities(set_a, set_b)
+for similarity in similarities:
+    print(f"{similarity[0]} - similar to {similarity[1]}")
