@@ -1,0 +1,37 @@
+import pandas as pd
+import difflib
+
+def find_similarities(set_a, set_b):
+    """
+    Find similarities between two sets of data.
+    
+    Args:
+    - set_a (list): List of strings representing Set A.
+    - set_b (list): List of strings representing Set B.
+    
+    Returns:
+    - similarities (list): List of tuples containing similar elements from Set A and Set B.
+    """
+    similarities = []
+    
+    for a in set_a:
+        matches = difflib.get_close_matches(a, set_b)
+        if matches:
+            similarities.append((a, matches[0]))
+    
+    return similarities
+
+# Read Excel file
+excel_file = "your_excel_file.xlsx"
+df = pd.read_excel(excel_file)
+
+# Extract data from columns C and F
+set_a = df['C'].tolist()
+set_b = df['F'].tolist()
+
+# Find similarities
+similarities = find_similarities(set_a, set_b)
+
+# Print similarities
+for similarity in similarities:
+    print(f"{similarity[0]} - similar to {similarity[1]}")
